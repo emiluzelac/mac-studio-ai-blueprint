@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mac Studio AI Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 0.6in 0.65in 0.7in; }
+  :root {
+    --ink: #16181d; --muted: #5b6270; --line: #e3e6eb; --soft: #f5f6f8;
+    --accent: #3b5bdb; --accent-soft: #edf1ff; --ok: #2b8a3e; --warn: #c2410c;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: Inter, -apple-system, Helvetica, sans-serif; color: var(--ink);
+         font-size: 10pt; line-height: 1.5; margin: 0; background: #fff;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1 { font-size: 30pt; line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 10px; font-weight: 800; }
+  h2 { font-size: 15pt; margin: 20px 0 8px; letter-spacing: -0.01em; font-weight: 700;
+       padding-top: 10px; border-top: 2px solid var(--ink); }
+  h2 .n { color: var(--accent); margin-right: 8px; }
+  h3 { font-size: 11pt; margin: 16px 0 6px; font-weight: 600; }
+  p { margin: 0 0 8px; }
+  code, pre { font-family: "JetBrains Mono", Menlo, monospace; font-size: 8.4pt; }
+  code { background: var(--soft); padding: 1px 4px; border-radius: 3px; }
+  pre { background: #0f1115; color: #e6e8ec; padding: 10px 12px; border-radius: 6px;
+        white-space: pre-wrap; margin: 6px 0 10px; break-inside: avoid; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 12px; break-inside: avoid; font-size: 9pt; }
+  th { text-align: left; font-weight: 600; color: var(--muted); font-size: 8pt; text-transform: uppercase;
+       letter-spacing: 0.04em; border-bottom: 1.5px solid var(--ink); padding: 5px 8px 5px 0; }
+  td { border-bottom: 1px solid var(--line); padding: 6px 8px 6px 0; vertical-align: top; }
+  .eyebrow { font-size: 8.5pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .lede { font-size: 12pt; color: var(--muted); max-width: 6in; }
+  .cover { padding-top: 0.3in; }
+  .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 22px 0 18px;
+           border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .specs div { padding: 10px 12px; border-right: 1px solid var(--line); }
+  .specs div:last-child { border-right: 0; }
+  .specs b { display: block; font-size: 15pt; font-weight: 700; }
+  .specs span { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .callout { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 14px;
+             border-radius: 0 6px 6px 0; margin: 10px 0 12px; break-inside: avoid; }
+  .callout.warn { background: #fff4ec; border-color: var(--warn); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid2 .card { font-size: 9pt; padding: 8px 10px; }
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; break-inside: avoid; }
+  .card h3 { margin-top: 0; }
+  .tag { display: inline-block; font-size: 7.5pt; font-weight: 600; padding: 1px 7px; border-radius: 99px;
+         background: var(--soft); color: var(--muted); margin-left: 4px; vertical-align: 1px; }
+  .tag.blue { background: var(--accent-soft); color: var(--accent); }
+  .muted { color: var(--muted); }
+  .small { font-size: 8.5pt; }
+  /* memory bar */
+  .bar { display: flex; height: 30px; border-radius: 6px; overflow: hidden; margin: 8px 0 4px; font-size: 8pt; font-weight: 600; }
+  .bar div { display: flex; align-items: center; justify-content: center; color: #fff; white-space: nowrap; }
+  .legend { display: flex; justify-content: space-between; font-size: 8pt; color: var(--muted); }
+  /* architecture */
+  .arch { display: grid; grid-template-columns: 1fr 34px 1.25fr 34px 1.25fr; align-items: center; margin: 10px 0 14px; break-inside: avoid; }
+  .arch .box { border: 1.5px solid var(--ink); border-radius: 8px; padding: 9px 10px; font-size: 8.8pt; background: #fff; }
+  .arch .box b { display: block; font-size: 9.5pt; }
+  .arch .box.hl { border-color: var(--accent); background: var(--accent-soft); }
+  .arch .arrow { text-align: center; color: var(--muted); font-size: 14pt; }
+  .stack > .box + .box { margin-top: 8px; }
+  ol.steps { padding-left: 18px; margin: 4px 0 10px; }
+  ol.steps li { margin-bottom: 4px; }
+  .phase { display: grid; grid-template-columns: 62px 1fr; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--line); break-inside: avoid; }
+  .phase .p { font-weight: 700; color: var(--accent); font-size: 9pt; }
+  .pb { break-before: page; }
+  .foot { margin-top: 26px; font-size: 8pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 8px; }
+  ul { margin: 4px 0 10px; padding-left: 18px; }
+  li { margin-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="eyebrow">Local AI Blueprint · November 2026</div>
+  <h1>Your Mac Studio as a<br>private AI workstation</h1>
+  <p class="lede">A complete, opinionated plan for a fast, private, always-on AI box. It runs strong open models entirely on your own hardware, with no subscriptions, nothing leaving the house, and access from your phone anywhere.</p>
+
+  <div class="specs">
+    <div><b>M5 Max</b><span>18-core CPU · 32-core GPU</span></div>
+    <div><b>36 GB</b><span>Unified memory</span></div>
+    <div><b>~460 GB/s</b><span>Memory bandwidth</span></div>
+    <div><b>1 TB</b><span>SSD · 10GbE · TB5</span></div>
+  </div>
+
+  <div class="callout">
+    <b>The short version.</b> LM Studio runs the models using Apple's MLX engine. Open WebUI gives you a ChatGPT-style interface. Tailscale lets you reach it privately from anywhere. The daily model is <b>Qwen3.6&nbsp;35B-A3B</b>, which is fast and smart, and <b>Qwen3.6&nbsp;27B</b> handles harder thinking and coding. A <code>CLAUDE.md</code> file comes with this blueprint, so Claude Code can do the whole build step by step.
+  </div>
+
+  <h2><span class="n">01</span>What 36 GB really means</h2>
+  <p>On Apple Silicon, the CPU and GPU share one pool of memory. That's why a Mac can run models a gaming PC can't, but the whole model has to fit in that pool. Two numbers decide everything:</p>
+  <ul>
+    <li><b>Capacity (36 GB)</b> sets <i>which</i> models fit. macOS and your apps need about 8 GB, which leaves <b>about 26–28 GB for AI</b>.</li>
+    <li><b>Bandwidth (~460 GB/s)</b> sets <i>how fast</i> they talk. Every generated word reads the active model weights from memory.</li>
+  </ul>
+
+  <div class="bar">
+    <div style="flex:8;background:#868e96">macOS + apps ~8 GB</div>
+    <div style="flex:20;background:#3b5bdb">Daily model ~20 GB</div>
+    <div style="flex:5;background:#748ffc">Context ~5 GB</div>
+    <div style="flex:3;background:#dee2e6;color:#5b6270">free</div>
+  </div>
+  <div class="legend"><span>0 GB</span><span>Typical load with the daily-driver model and a 32K context</span><span>36 GB</span></div>
+
+  <p style="margin-top:10px">The rule that follows from this: <b>one large model loaded at a time.</b> LM Studio swaps models automatically when you pick a different one, which takes a few seconds.</p>
+</section>
+
+<section class="pb">
+  <h2><span class="n">02</span>The architecture</h2>
+  <div class="arch">
+    <div class="stack">
+      <div class="box"><b>Phone / laptop</b>Any browser, anywhere</div>
+      <div class="box"><b>Editors &amp; scripts</b>Zed, VS Code, agents</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="stack">
+      <div class="box hl"><b>Tailscale</b>Private encrypted network. Never public.</div>
+      <div class="box hl"><b>Open WebUI · :8080</b>Chat, document search, accounts</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="stack">
+      <div class="box hl"><b>LM Studio · :1234</b>MLX engine, OpenAI-compatible API</div>
+      <div class="box"><b>Models on SSD</b>35B-A3B · 27B · small · embeddings</div>
+    </div>
+  </div>
+
+  <h3>Why these pieces</h3>
+  <table>
+    <tr><th style="width:22%">Layer</th><th style="width:22%">Choice</th><th>Why it wins on this Mac</th></tr>
+    <tr><td>Engine</td><td><b>LM Studio</b> <span class="tag blue">MLX</span></td><td>Runs Apple's MLX framework, the fastest way to run models on Apple Silicon (about 10–20% faster than llama.cpp). It has a friendly GUI for browsing models, starts headless at login, and serves a standard OpenAI-style API.</td></tr>
+    <tr><td>Chat interface</td><td><b>Open WebUI</b></td><td>Polished ChatGPT-like app in the browser. It handles chat history, "chat with your documents" (RAG), multiple user accounts, and works well on a phone.</td></tr>
+    <tr><td>Remote access</td><td><b>Tailscale</b></td><td>Your devices join a private network, so you can reach the Mac from anywhere with HTTPS and no router port-forwarding. Free for personal use.</td></tr>
+    <tr><td>Speech</td><td><b>mlx-whisper</b></td><td>Transcribes voice memos and meetings locally, fast enough for real-time use.</td></tr>
+    <tr><td>Images</td><td><b>mflux</b> (FLUX.1)</td><td>Local image generation on MLX. Unload the chat model first, because both won't fit at once.</td></tr>
+    <tr><td>Alternative engine</td><td>Ollama</td><td>Also good, and now uses MLX by default. Pick <i>one</i> engine so you don't end up with two copies of every model.</td></tr>
+  </table>
+
+  <h2><span class="n">03</span>If you ever upgrade</h2>
+  <p>This machine sits at the entry point for serious local AI. The next steps up:</p>
+  <ul>
+    <li><b>64 GB or more (40-core M5 Max, ~614 GB/s):</b> runs 70B-class dense models and keeps two models loaded at once. About 30% faster at generating text.</li>
+    <li><b>128 GB+ / M5 Ultra:</b> runs frontier-scale open models (100B+ mixture-of-experts) at usable speed.</li>
+    <li><b>External Thunderbolt 5 SSD:</b> cheap model storage if the internal 1 TB fills up.</li>
+  </ul>
+
+</section>
+
+<section class="pb">
+  <h2><span class="n">04</span>The model lineup</h2>
+  <p>As of November 2026, the strongest open models that fit comfortably in 36 GB are Alibaba's <b>Qwen3.6</b> family, in 4-bit MLX builds. 4-bit quantization shrinks a model to about a quarter of its size with only a small quality loss.</p>
+  <table>
+    <tr><th style="width:17%">Role</th><th style="width:22%">Model</th><th style="width:8%">Size</th><th style="width:12%">Est. speed</th><th>Use it for</th></tr>
+    <tr><td><b>Daily driver</b></td><td>Qwen3.6-35B-A3B · 4-bit</td><td>~20 GB</td><td>50–80 tok/s</td><td>Everyday questions, writing, summarizing, brainstorming. Mixture-of-experts: only ~3B of its 35B parameters work per word, so it's quick.</td></tr>
+    <tr><td><b>Deep thinker / coder</b></td><td>Qwen3.6-27B · 4-bit</td><td>~16 GB</td><td>18–26 tok/s</td><td>Code, careful reasoning, tricky analysis. Dense model: slower, but more thorough.</td></tr>
+    <tr><td><b>Quick helper</b></td><td>~4B instruct · 4-bit</td><td>~3 GB</td><td>150+ tok/s</td><td>Titles, tagging, autocomplete, background jobs.</td></tr>
+    <tr><td><b>Embeddings</b></td><td>Small embedding model</td><td>&lt;1 GB</td><td>—</td><td>Powers "chat with your documents".</td></tr>
+  </table>
+  <p class="small muted">Speeds are estimates scaled from community benchmarks at this memory bandwidth. Reading speed is roughly 5–8 tok/s, so anything above 20 feels instant. The build includes a benchmark step that records real numbers. Open models improve every few months, and the CLAUDE.md tells Claude to check for something better before downloading.</p>
+
+  <div class="callout warn">
+    <b>Honest limits.</b> These models are excellent, but they're not frontier cloud models. For very large codebases, long autonomous agent runs, or the hardest reasoning, use Claude in the cloud. The local box is for <b>privacy, offline use, and free unlimited use</b>, and it covers most day-to-day needs.
+  </div>
+  <h2><span class="n">05</span>Using it day to day</h2>
+  <div class="grid2">
+    <div class="card"><h3>At the desk</h3>Open <code>http://localhost:8080</code>, or use the LM Studio app directly. Pick a model from the dropdown at the top.</div>
+    <div class="card"><h3>From your phone</h3>Turn on Tailscale and open your Mac's <code>…ts.net</code> address. In Safari, use "Add to Home Screen" so it works like an app.</div>
+    <div class="card"><h3>Chat with documents</h3>Drag PDFs or notes into a chat, or build a Knowledge collection in Open WebUI. Everything stays on the Mac.</div>
+    <div class="card"><h3>Something feels slow?</h3>Open Activity Monitor → Memory. If pressure is yellow or red, close big apps or switch to a smaller model or a shorter context.</div>
+  </div>
+
+</section>
+
+<section class="pb">
+  <h2><span class="n">06</span>The build, phase by phase</h2>
+  <p>Each phase ends with a check that must pass before moving on. With Claude Code, open Terminal in the folder that holds <code>CLAUDE.md</code>, run <code>claude</code>, and say <i>"Build this."</i></p>
+
+  <div class="phase"><div class="p">Phase 1</div><div><b>macOS baseline.</b> Update macOS, turn on FileVault (save the recovery key!) and the firewall. Set it never to sleep and to restart after a power cut. Install Homebrew, <code>uv</code>, and git, and create the <code>~/ai</code> workspace.</div></div>
+  <div class="phase"><div class="p">Phase 2</div><div><b>GPU memory ceiling.</b> Raise the GPU's memory limit from the default ~75% to 28 GB, which gives models room for longer conversations. It's a single setting and is made permanent with a boot script.<pre>sudo sysctl iogpu.wired_limit_mb=28672</pre></div></div>
+  <div class="phase"><div class="p">Phase 3</div><div><b>Engine.</b> Install LM Studio, enable the <code>lms</code> command-line tool, and set the server to start at login on port 1234. It's reachable only from this Mac. Turn on idle auto-unload.</div></div>
+  <div class="phase"><div class="p">Phase 4</div><div><b>Models.</b> Download the four models above as MLX builds. Start the context window at 32K tokens and raise it only while Memory Pressure stays green.</div></div>
+  <div class="phase"><div class="p">Phase 5</div><div><b>Chat interface.</b> Install Open WebUI and run it as a background service that starts at login. You create your own admin account. Then turn off public sign-ups and connect document search.</div></div>
+  <div class="phase"><div class="p">Phase 6</div><div><b>Remote access.</b> Install Tailscale and sign in on the Mac and your phone. <code>tailscale serve</code> publishes the chat app to <i>your devices only</i>. Never use "Funnel", which makes it public.</div></div>
+  <div class="phase"><div class="p">Phase 7</div><div><b>Extras.</b> Voice transcription (mlx-whisper), image generation (mflux), and connecting code editors to the local API.</div></div>
+  <div class="phase"><div class="p">Phase 8</div><div><b>Benchmark.</b> A script measures real speed and memory for each model and saves the results.</div></div>
+  <div class="phase"><div class="p">Phase 9</div><div><b>Maintenance.</b> Time Machine backups of chats and settings (models are excluded because they can be downloaded again), plus <code>status.sh</code> and <code>update.sh</code> helper scripts.</div></div>
+
+  <h2><span class="n">07</span>Rules of the road</h2>
+  <ul>
+    <li><b>Nothing is exposed to the internet.</b> No router port-forwarding, ever. Tailscale is the only way in from outside.</li>
+    <li><b>One big model at a time.</b> Two 15–20 GB models won't fit together.</li>
+    <li><b>Keep 150 GB free on the SSD.</b> Models pile up quickly. Delete ones you don't use from LM Studio's "My Models" page.</li>
+    <li><b>Update monthly</b>, not automatically. Run <code>~/ai/scripts/update.sh</code>, then check that everything still works.</li>
+  </ul>
+
+  <div class="foot">Mac Studio (M5 Max, 36 GB) · Local AI Blueprint · November 2026. Model names and app features change quickly, so check the current versions when you build. The companion <code>CLAUDE.md</code> holds the exact technical steps.</div>
+</section>
+
+</body>
+</html>
