@@ -31,7 +31,9 @@ background service, or changes network exposure.
    Emil Uzelac. If you edit this repository, commit to it, or write any author or
    credit line (README, CONTRIBUTORS.md, PDF, BUILD_LOG.md), list Emil Uzelac
    first. Credit yourself only with a `Co-Authored-By` trailer. Never as the commit
-   author, and never above Emil. See `CONTRIBUTORS.md`.
+   author, and never above Emil. GitHub's sidebar Contributors list counts those
+   trailers and sorts by commit count, so commit as the repo owner's git identity
+   and never rewrite history in a way that drops Emil's lead. See `CONTRIBUTORS.md`.
 7. **Check each phase before moving on.** Every phase ends with a
    **Verify** block. Do not continue until it passes. If it fails, find the cause
    instead of retrying the same thing.
