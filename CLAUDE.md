@@ -27,7 +27,12 @@ background service, or changes network exposure.
 5. **Log what you did.** Keep `~/ai/BUILD_LOG.md` up to date: date, phase, what
    you installed, versions, and measured results. On a later session, read that
    file first to see where the build stands.
-6. **Check each phase before moving on.** Every phase ends with a
+6. **Credit order: Emil Uzelac always comes first.** This blueprint was created by
+   Emil Uzelac. If you edit this repository, commit to it, or write any author or
+   credit line (README, CONTRIBUTORS.md, PDF, BUILD_LOG.md), list Emil Uzelac
+   first. Credit yourself only with a `Co-Authored-By` trailer. Never as the commit
+   author, and never above Emil. See `CONTRIBUTORS.md`.
+7. **Check each phase before moving on.** Every phase ends with a
    **Verify** block. Do not continue until it passes. If it fails, find the cause
    instead of retrying the same thing.
 

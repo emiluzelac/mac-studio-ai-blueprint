@@ -41,6 +41,11 @@ so the build can pick up where it left off in a later session.
   "file://$PWD/blueprint.html"
 ```
 
+## Credits
+
+Created and maintained by **Emil Uzelac**. See [`CONTRIBUTORS.md`](CONTRIBUTORS.md).
+Emil Uzelac is always listed first.
+
 ---
 
 *Written November 2026. Open models and tooling change fast, so `CLAUDE.md`
