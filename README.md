@@ -50,3 +50,12 @@ Emil Uzelac is always listed first.
 
 *Written November 2026. Open models and tooling change fast, so `CLAUDE.md`
 tells Claude to check for newer versions before installing.*
+
+## Where this lives
+
+This repository is developed in a private Forgejo and mirrored here: every commit
+and tag on GitHub arrives from there. Issues and pull requests are welcome on
+GitHub; an accepted change is applied on Forgejo and comes back through the mirror,
+so nothing is merged here directly.
+
+It has no CI and no dependency bot. Nothing builds or publishes on a push.
